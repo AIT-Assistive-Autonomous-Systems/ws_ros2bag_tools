@@ -1,0 +1,57 @@
+{
+    "name": "ros2bag_tools devcontainer",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "username": "devuser"
+        },
+        "ghcr.io/devcontainers/features/git-lfs:1": {},
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "os-provided"
+        }
+    },
+    "dockerComposeFile": [
+        "compose.yaml"
+    ],
+    "workspaceFolder": "/ws_dev",
+    "service": "ws_ros2bag_tools",
+    "remoteUser": "devuser",
+    "capAdd": [
+        "SYS_PTRACE"
+    ],
+    "securityOpt": [
+        "seccomp=unconfined"
+    ],
+    "remoteEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}"
+    },
+    "mounts": [
+        {
+            "source": "/tmp/.X11-unix",
+            "target": "/tmp/.X11-unix",
+            "type": "bind"
+        },
+        {
+            "source": "${localEnv:XAUTHORITY}",
+            "target": "/home/devuser/.Xauthority",
+            "type": "bind"
+        }
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.black-formatter",
+                "ms-python.autopep8",
+                "ms-python.python",
+                "ms-python.flake8",
+                "ms-python.isort",
+                "charliermarsh.ruff",
+                "EditorConfig.EditorConfig",
+                "GitHub.vscode-github-actions",
+                "streetsidesoftware.code-spell-checker-cspell-bundled-dictionaries"
+            ]
+        }
+    },
+    "overrideCommand": true
+}

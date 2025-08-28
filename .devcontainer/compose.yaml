@@ -1,0 +1,14 @@
+version: '3'
+services:
+  ws_ros2bag_tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      additional_contexts:
+      - workspace=../src
+    volumes:
+      - type: bind
+        source: ../
+        target: /ws_dev
+    network_mode: "host"
+    ipc: "host"

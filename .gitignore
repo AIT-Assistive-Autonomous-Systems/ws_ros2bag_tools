@@ -1,0 +1,16 @@
+build
+devel
+install
+log
+*.pyc
+__pycache__
+.pytest_cache
+*.zsh_history
+*.bash_history
+*.zcom*
+rosbag2_*
+*.bag
+.env
+src/**
+!src/ros2.repos
+!src/.dockerignore

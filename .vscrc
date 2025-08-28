@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+SCRIPTPATH=${SCRIPTPATH:-$PWD}
+ext=${ext:-}
+
+export HISTFILE=${WS_HISTFILE:-${HISTFILE:-}}
+
+if [ -z $ROS_DISTRO ]; then
+    ROS_DISTRO=$(ls /opt/ros/ | grep -v rolling | sort -r | head -n 1)
+
+    if [ -z $ROS_DISTRO ]; then
+      if [ -d /opt/ros/rolling ]; then
+        ROS_DISTRO=rolling
+      else
+        echo "ROS_DISTRO not found"
+        return
+      fi
+    fi
+    export ROS_DISTRO=$ROS_DISTRO
+fi
+
+if [ -f /opt/ros/$ROS_DISTRO/setup$ext ]; then
+    . /opt/ros/$ROS_DISTRO/setup$ext
+elif [ -f /opt/ros/$ROS_DISTRO/setup.sh ]; then
+    . /opt/ros/$ROS_DISTRO/setup.sh
+fi
+
+if [ -f /ws/install/setup$ext ]; then
+    . /ws/install/setup$ext
+elif [ -f /ws/install/setup.sh ]; then
+    . /ws/install/setup.sh
+fi
+
+if [ -f $SCRIPTPATH/install/setup$ext ]; then
+    . $SCRIPTPATH/install/setup$ext
+elif [ -f $SCRIPTPATH/install/setup.sh ]; then
+    . $SCRIPTPATH/install/setup.sh
+fi

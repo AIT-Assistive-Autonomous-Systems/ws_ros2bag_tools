@@ -1,0 +1,81 @@
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "source_ros",
+            "type": "shell",
+            "command": "source ${workspaceFolder}/.vscrc && env | head -n -1 > ${workspaceFolder}/.env",
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build_ws"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "build_ws",
+            "type": "shell",
+            "command": "${workspaceFolder}/build.sh",
+            "options": {
+                "env": {
+                    "INSTALL_TYPE": "install",
+                    "BUILD_TYPE": "Debug"
+                }
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "vsc_import",
+            "type": "shell",
+            "command": "vcs import --recursive -w 1 --input ${workspaceFolder}/src/ros2.repos ${workspaceFolder}/src",
+            "problemMatcher": []
+        },
+        {
+            "label": "test_ws",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build_ws"
+            ],
+            "command": "${workspaceFolder}/test.sh",
+            "problemMatcher": [],
+        }
+    ],
+    "inputs": [
+        {
+            "id": "INSTALL_TYPE",
+            "type": "pickString",
+            "description": "Select the install type",
+            "options": ["devel", "install"],
+            "default": "install"
+        },
+        {
+            "id": "BUILD_TYPE",
+            "type": "pickString",
+            "description": "Select the (cmake) build type",
+            "options": ["Release", "Debug", "RelWithDebInfo"],
+            "default": "Debug"
+        }
+    ]
+}
